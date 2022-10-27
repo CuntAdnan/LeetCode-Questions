@@ -1,0 +1,85 @@
+class Solution {
+public:
+    //  Function to check if current cell is living or not
+    bool isLiving(vector<vector<int>>& board, int i, int j){
+        //  Cell should be inside the board
+        if(i<0 or j<0 or i>=board.size() or j>=board[0].size()){
+            return false;
+        }
+        //  Cell should not be dead
+        if(board[i][j] != 1){
+            return false;
+        }
+        return true;
+    }
+    
+    
+    int processNextGen(vector<vector<int>>& board, int i, int j, bool live){
+        int adjacentLiving = 0;
+        
+        //  Count Living cells in all 8 adjacent cells
+        if(isLiving(board, i-1, j-1)){
+            adjacentLiving++;
+        }
+        if(isLiving(board, i, j-1)){
+            adjacentLiving++;
+        }
+        if(isLiving(board, i+1, j-1)){
+            adjacentLiving++;
+        }
+        if(isLiving(board, i+1, j)){
+            adjacentLiving++;
+        }
+        if(isLiving(board, i+1, j+1)){
+            adjacentLiving++;
+        }
+        if(isLiving(board, i, j+1)){
+            adjacentLiving++;
+        }
+        if(isLiving(board, i-1, j+1)){
+            adjacentLiving++;
+        }
+        if(isLiving(board, i-1, j)){
+            adjacentLiving++;
+        }
+        
+        //  Apply game rules
+        //  Live flag holds the value if current cell was initally alive or not
+        if(live){
+            if(adjacentLiving==2 or adjacentLiving==3){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
+        else{
+            if(adjacentLiving==3){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
+        
+    }
+    
+    
+    void gameOfLife(vector<vector<int>>& board) {
+        vector<vector<int>> nextGen = board;
+        
+        for(int i=0; i<board.size(); i++){
+            for(int j=0; j<board[0].size(); j++){
+                //  Slightly different processing for live and dead cells as per rules
+                if(board[i][j] == 1){
+                    nextGen[i][j] = processNextGen(board, i, j, true);
+                }
+                else{
+                    nextGen[i][j] = processNextGen(board, i, j, false);
+                }
+            }
+        }
+        board = nextGen;
+    }
+};  }
+};

@@ -1,0 +1,41 @@
+https://leetcode.com/problems/search-insert-position/
+
+class Solution {
+public:
+    
+    int binary_search(vector<int>&nums,int x)
+{
+	int start = 0;
+	int end = nums.size()-1;
+	while(start<=end)
+	{
+		int mid = (start+end)/2;
+		if(nums[mid]==x)	
+			return mid;
+		else if(nums[mid]<x)	
+			start = mid + 1;
+		else	
+			end = mid - 1;
+	}
+	return -1;
+}
+    
+    
+    int searchInsert(vector<int>& nums, int target) {
+        int ans = binary_search(nums,target);
+        if(ans!=-1){
+            return ans;
+        }else{
+            if(target>nums[nums.size()-1]){
+                return nums.size();
+            }else if(target<nums[0]){
+               return 0;
+            }else{
+              
+                auto it2 = upper_bound(nums.begin(),nums.end(),target);
+                return it2-nums.begin();
+            }
+        }
+       return 0;   
+    }
+};

@@ -1,0 +1,17 @@
+class Solution {
+public:
+    void wiggleSort(vector<int>& nums) {
+        
+        sort(nums.begin(),nums.end());
+        vector<int> temp(nums.size());
+        temp = nums;
+        int j = nums.size()-1;
+        for(int k=1;k<nums.size();k+=2){
+            temp[k] = nums[j--];      
+        }
+        for(int k=0;k<nums.size();k+=2){
+            temp[k] = nums[j--];
+        }
+        nums = temp;
+    }
+};

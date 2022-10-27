@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        
+        int local=0;
+        int max = INT_MIN;
+        
+        for(auto it : nums){
+            local = local +it;
+            if(local>max){
+                max=local;
+            }
+            if(local<0){
+                local=0;
+            }
+        }
+        return max;
+        
+    }
+};

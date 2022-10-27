@@ -1,0 +1,39 @@
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        
+       set<int>rows;
+       set<int>col;
+       int count=0;
+       
+       int m = matrix.size();
+       int n = matrix[0].size();
+        
+       // keeping the records of the 0.. 
+       for(int i = 0;i<m;i++){
+             for(int j = 0;j<n;j++){
+                 if(matrix[i][j]==0){
+                     rows.insert(i);
+                     col.insert(j);
+                 }
+             }
+       }
+        
+       //iterate thorught the vector and upadate the values..
+      for(auto it : rows){
+          
+          for(int i = 0;i<n;i++){
+              matrix[it][i]=0;
+          }
+      }
+      for(auto it : col){
+          
+          for(int i = 0;i<m;i++){
+             matrix[i][it]=0; 
+          }
+      }
+        
+       
+       
+    }
+};

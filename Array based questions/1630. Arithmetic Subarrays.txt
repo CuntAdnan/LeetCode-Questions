@@ -1,0 +1,49 @@
+https://leetcode.com/problems/arithmetic-subarrays/
+class Solution {
+public:
+    
+    // Function to slice a given vector
+// from range X to Y
+vector<int> slicing(vector<int>& arr,
+                    int X, int Y)
+{
+ 
+    // Starting and Ending iterators
+    auto start = arr.begin() + X;
+    auto end = arr.begin() + Y + 1;
+ 
+    // To store the sliced vector
+    vector<int> result(Y - X + 1);
+ 
+    // Copy vector using copy function()
+    copy(start, end, result.begin());
+ 
+    // Return the final sliced vector
+    return result;
+}
+     
+    
+    
+    bool isAP(vector<int>&nums){
+        
+        sort(nums.begin(),nums.end());
+        set<int>s;
+        
+        for(int i = 1;i<nums.size();i++){
+           s.insert(nums[i]-nums[i-1]);
+        }
+        
+        if(s.size()==1) return true;
+        return false;
+    }
+    
+    vector<bool> checkArithmeticSubarrays(vector<int>& nums, vector<int>& l, vector<int>& r) {
+        vector<bool>final;
+        for(int i = 0;i<l.size();i++){
+            vector<int>ans=slicing(nums,l[i],r[i]);
+            bool b = isAP(ans);
+            final.push_back(b);
+        }
+        return final;
+    }
+};

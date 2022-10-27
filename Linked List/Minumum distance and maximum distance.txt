@@ -1,0 +1,53 @@
+https://leetcode.com/problems/find-the-minimum-and-maximum-number-of-nodes-between-critical-points/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    
+    int length(ListNode *head){
+        if(head==NULL) return 0;
+        return 1+length(head->next);
+    }
+    
+    vector<int> nodesBetweenCriticalPoints(ListNode* head) {
+       
+       ListNode *prev = head;
+       ListNode *curr = head->next;
+       int count=2; 
+       vector<int>points;   // storing the critical points..
+       vector<int>distances;
+        
+       while(curr and curr->next){
+           
+           if(curr->val>prev->val and curr->val > curr->next->val){
+             points.push_back(count);
+           }else if(curr->val<prev->val and curr->val < curr->next->val){ 
+               points.push_back(count);
+           }
+        
+           count++;
+           prev = curr;
+           curr=curr->next;   
+       }    
+        
+      if(length(head) == 2 or points.size()<2 ) return {-1,-1};
+      else{
+          int minD=points[1]-points[0];
+          for(int i =1;i<points.size();i++){
+              if(points[i]-points[i-1]<minD) minD = points[i]-points[i-1];
+          }
+          distances.push_back(minD);
+          distances.push_back(points[points.size()-1]-points[0]);
+            
+      }
+        return distances;
+    }
+};

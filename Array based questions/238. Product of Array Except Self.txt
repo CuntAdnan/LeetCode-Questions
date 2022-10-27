@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        
+        vector<int>ans;
+        int c = count(nums.begin(),nums.end(),0);
+        int value = 1;
+        
+        for(int i = 0;i<nums.size();i++){
+            if(nums[i] != 0){
+                value = value *nums[i];
+            }            
+        }
+        
+        if(c==0){
+            for(int i = 0;i<nums.size();i++){
+                ans.push_back(value/nums[i]);
+            }
+        }
+        else{
+            for(int i = 0;i<nums.size();i++){
+                if(nums[i] != 0){
+                    ans.push_back(0);
+                }else if(nums[i] == 0 and c==1){
+                    ans.push_back(value);
+                }else if(nums[i] == 0 and c>1){
+                    ans.push_back(0);
+                }
+            }
+        }
+        return ans;
+    }
+};

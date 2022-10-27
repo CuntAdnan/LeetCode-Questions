@@ -1,0 +1,24 @@
+https://leetcode.com/problems/find-the-middle-index-in-array/
+class Solution {
+public:
+    int findMiddleIndex(vector<int>& nums) {
+        //left subarray sum
+        int left=0;
+		
+		//find sum of array
+        int right= accumulate(nums.begin(), nums.end(), 0);
+        
+        //for finding index
+		
+        for(int i=0; i<nums.size(); i++)
+        {
+            right= right - nums[i];
+            
+            if(left==right)
+                return i;
+            else
+                left= left+nums[i];
+        }
+        return -1;
+    }
+};

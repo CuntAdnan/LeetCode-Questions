@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int evalRPN(vector<string>& v) {
+        stack<int>s;
+        for(int i = 0;i<v.size();i++){
+            if(v[i] == "+" or v[i] == "-" or v[i] == "*" or v[i] == "/"){
+                int value1 = s.top();
+                s.pop();
+                int value2 = s.top();
+                s.pop();
+                if(v[i] == "+"){
+                    s.push(value1+value2);
+                }else if(v[i] == "*"){
+                    s.push(value1*value2);
+                }else if(v[i] == "-"){
+                    s.push((value2-value1));
+                }else{
+                    s.push(value2/value1);
+                }
+            }else{
+                s.push(stoi(v[i]));
+            }
+        }
+        return (s.top());
+    }
+};

@@ -1,0 +1,59 @@
+https://leetcode.com/problems/merge-nodes-in-between-zeros/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeNodes(ListNode* head) {
+        
+        
+        int val=0;
+        head=head->next;   // you already proceed to the first node ..
+        
+        ListNode*ansNode=NULL;
+        ListNode*ansNodeTail=NULL;
+        
+        while(head->next!=NULL){
+            
+            if(head->val!=0){
+                val = val + head->val;
+                head=head->next;
+            }else{
+                
+                ListNode *n = new ListNode(val);
+                if(ansNode ==NULL){  // empty linked list....
+                    ansNode=n;
+                    ansNodeTail=n;
+                }else{               // already filled with some elements...
+                    ansNodeTail->next=n;
+                    ansNodeTail=n;
+                }
+                val=0;
+                head=head->next;
+            }
+        }
+        if(val!=0){
+           ListNode *n = new ListNode(val);
+           if(ansNode == NULL){
+               ansNode = n;
+               return ansNode;
+           }else{
+               ansNodeTail->next=n;
+               ansNodeTail=n;
+               return ansNode;
+           }
+           
+        }
+        
+        return ansNode;
+        
+       
+    }
+};
